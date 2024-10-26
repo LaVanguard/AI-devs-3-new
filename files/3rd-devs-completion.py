@@ -5,8 +5,10 @@ This is my attempt to translate 'completion' example from 3rd-devs
 
 from openai import OpenAI
 
-from lib.logtokens import logTokens
+from lib.usedtokens import UsedTokens
 from secrets import openai_api_key
+
+tokens = UsedTokens(False)
 
 def addLabel(task):
     openai = OpenAI(api_key = openai_api_key)
@@ -23,7 +25,7 @@ def addLabel(task):
             temperature = 0
         )
         if chatCompletion.choices[0].message.content:
-            logTokens(chatCompletion, "addLabel", model)
+            tokens.log(chatCompletion, "addLabel")
             label = chatCompletion.choices[0].message.content.strip().lower()
             if label in ["work", "private"]:
                 return label
@@ -53,3 +55,4 @@ for task in tasks:
     labels.append(addLabel(task))
 for task, label in zip(tasks, labels):
     print (f'Task: "{task}" - Label: {label}')
+tokens.print()

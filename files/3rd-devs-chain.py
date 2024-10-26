@@ -5,8 +5,10 @@ This is my attempt to translate 'chain' example from 3rd-devs
 
 from openai import OpenAI
 
-from lib.logtokens import logTokens
+from lib.usedtokens import UsedTokens
 from secrets import openai_api_key
+
+tokens = UsedTokens(False)
 
 database = [
     { "id": 1, "name": "Adam", "age": 28, "occupation": "Software Engineer", "hobby": "Rock climbing" },
@@ -17,18 +19,18 @@ database = [
 def selectPerson(question):
     openai = OpenAI(api_key = openai_api_key)
     messages = [
-        { "role": "system", "content": f"You are an assistant that selects the most relevant person for a given question. Respond with only the person's ID (1 for Adam, 2 for Michał, or 3 for Jakub).\nHere is the list of people: {repr(database)}" },
+        { "role": "system", "content": f"You are an assistant that selects the most relevant person for a given question. Respond with only the person's ID (1 for Adam, 2 for Michał, or 3 for Jakub)."},
         { "role": "user", "content": question }
     ]
     try:
-        model = "gpt-4o-mini"
+        model = "gpt-4o"
         chat_completion = openai.chat.completions.create(
             messages = messages,
             model = model,
             max_tokens = 1,
             temperature = 0
         )
-        logTokens(chat_completion,"selectPerson", model)
+        tokens.log(chat_completion,"selectPerson")
         completion = chat_completion.choices[0].message.content
         return int(completion.strip()) if completion.strip().isdecimal() else 1
     except Exception as error:
@@ -43,14 +45,14 @@ def answerQuestion(question, number):
         { "role": "user", "content": question }
     ]
     try:
-        model = "gpt-4o-mini"
+        model = "gpt-4o"
         chat_completion = openai.chat.completions.create(
             messages = messages,
             model = model,
             max_tokens = 500,
             temperature = 0.7
         )
-        logTokens(chat_completion,"answerQuestion", model)
+        tokens.log(chat_completion,"answerQuestion")
         return chat_completion.choices[0].message.content
     except Exception as error:
         print (f"Error in answerQuestion: {error}")
@@ -64,14 +66,14 @@ def oneAnswer(question):
         { "role": "user", "content": question }
     ]
     try:
-        model = "gpt-4o-mini"
+        model = "gpt-4o"
         chat_completion = openai.chat.completions.create(
             messages = messages,
             model = model,
             max_tokens = 500,
             temperature = 0.7
         )
-        logTokens(chat_completion,"oneAnswer", model)
+        tokens.log(chat_completion,"oneAnswer")
         return chat_completion.choices[0].message.content
     except Exception as error:
         print (f"Error in answerQuestion: {error}")
@@ -89,3 +91,4 @@ for question in questions:
     answer = answerQuestion(question, selected_person_id)
     better_answer = oneAnswer(question)        # Also let's use our "better" function
     print (f'Question: "{question}\nAnswer: {answer}\nBetter answer: {better_answer}\n')
+tokens.print()

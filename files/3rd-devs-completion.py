@@ -5,6 +5,7 @@ This is my attempt to translate 'completion' example from 3rd-devs
 
 from openai import OpenAI
 
+from lib.logtokens import logTokens
 from secrets import openai_api_key
 
 def addLabel(task):
@@ -14,15 +15,16 @@ def addLabel(task):
         {"role": "system", "content": task}
     ]
     try:
+        model = "gpt-4o-mini"
         chatCompletion = openai.chat.completions.create(
             messages = messages,
-            model = "gpt-4o-mini",
+            model = model,
             max_tokens = 1,
             temperature = 0
         )
         if chatCompletion.choices[0].message.content:
+            logTokens(chatCompletion, "addLabel", model)
             label = chatCompletion.choices[0].message.content.strip().lower()
-            print (f"... from completion received label: {label}")
             if label in ["work", "private"]:
                 return label
             else:

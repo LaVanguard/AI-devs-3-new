@@ -5,6 +5,7 @@ This is my attempt to translate 'chain' example from 3rd-devs
 
 from openai import OpenAI
 
+from lib.logtokens import logTokens
 from secrets import openai_api_key
 
 database = [
@@ -20,12 +21,14 @@ def selectPerson(question):
         { "role": "user", "content": question }
     ]
     try:
+        model = "gpt-4o-mini"
         chat_completion = openai.chat.completions.create(
             messages = messages,
-            model = "gpt-4o",
+            model = model,
             max_tokens = 1,
             temperature = 0
         )
+        logTokens(chat_completion,"selectPerson", model)
         completion = chat_completion.choices[0].message.content
         return int(completion.strip()) if completion.strip().isdecimal() else 1
     except Exception as error:
@@ -40,12 +43,14 @@ def answerQuestion(question, number):
         { "role": "user", "content": question }
     ]
     try:
+        model = "gpt-4o-mini"
         chat_completion = openai.chat.completions.create(
             messages = messages,
-            model = "gpt-4o",
+            model = model,
             max_tokens = 500,
             temperature = 0.7
         )
+        logTokens(chat_completion,"answerQuestion", model)
         return chat_completion.choices[0].message.content
     except Exception as error:
         print (f"Error in answerQuestion: {error}")
@@ -59,12 +64,14 @@ def oneAnswer(question):
         { "role": "user", "content": question }
     ]
     try:
+        model = "gpt-4o-mini"
         chat_completion = openai.chat.completions.create(
             messages = messages,
-            model = "gpt-4o",
+            model = model,
             max_tokens = 500,
             temperature = 0.7
         )
+        logTokens(chat_completion,"oneAnswer", model)
         return chat_completion.choices[0].message.content
     except Exception as error:
         print (f"Error in answerQuestion: {error}")

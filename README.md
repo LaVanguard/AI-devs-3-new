@@ -9,3 +9,7 @@ For now it includes the following:
 The following are Python re-writes of 3rd-devs examples (https://github.com/i-am-alice/3rd-devs)
 - 3rd-devs-completion.py
 - 3rd-devs-chain.py
+
+Required Python libraries:
+- openai
+- requests

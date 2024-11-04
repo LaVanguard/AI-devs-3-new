@@ -1,6 +1,6 @@
 """
 Simple solution to first task.
-- open webpage (xyz.ag3nts.org)
+- open webpage (xyz)
 - read "captcha" question
 - send request as POST
 - get the webpage
@@ -12,9 +12,9 @@ import sys
 from openai import OpenAI
 
 from lib.usedtokens import UsedTokens
-from secrets import openai_api_key
+from secrets import openai_api_key, central_domain
 
-page = "https://xyz.ag3nts.org"
+page = f"https://xyz.{central_domain}"
 username = "tester"
 password = "574e112a"
 
@@ -64,3 +64,6 @@ except Exception as error:
 result_text = result_raw.content.decode('utf8')
 print ("\nThe result page is:\n")
 print (result_text)
+flag = re.findall('{{FLG:(.*?)}}', result_text)
+if flag:
+    print (f"\n\nZnaleziono flagę: {flag[0]}")

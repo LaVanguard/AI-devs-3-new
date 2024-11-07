@@ -28,10 +28,14 @@ input_raw = requests.get(input_link)             # The data is still in binary f
 input_text = input_raw.content.decode('utf8')   # Decode from binary to ASCII, still one string
 data = json.loads(input_text)
 print (f"Dane testowe mają {len(data['test-data'])} elementów.")
+# Set "apikey" to my AI-Devs API key from secrets.py
 data['apikey'] = aidevs_api_key
+# enumerate - we will update the entries, so we need index
 for index, entry in enumerate(data['test-data']):
+    # Question will be "true" if matches the "a + b" pattern
     question = re.findall("^(\d+) \+ (\d+)$", entry['question'])
     answer = entry['answer']
+    # Check for any questions not matching the pattern
     if not question or type(answer) is not int:
         print (f"Entry {index} is bad: {entry}")
         sys.exit(1)
@@ -39,8 +43,10 @@ for index, entry in enumerate(data['test-data']):
     b = int(question[0][1])
     c = answer
     if a + b != c:
+        # Correct the entry
         data['test-data'][index]['answer'] = a + b
         print (f'Index {index}: Corrected "{question}" from {c} to {a+b}.')
+    # If there is "test" question - ask AI
     if "test" in entry:
         question = entry['test']['q']
         messages = [

@@ -5,8 +5,7 @@ Simple library to interface with AI devs 3 system
 import requests
 
 # Simple function to send the excercise solution to the system and return the confirmation
-def send_task_response(api_key, task, answer):
-    response_api = "https://poligon.aidevs.pl/verify"
+def send_task_response(api_key, task, answer, response_api = "https://poligon.aidevs.pl/verify"):
     data = {
         "task": task,
         "apikey": api_key,

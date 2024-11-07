@@ -75,3 +75,5 @@ class UsedTokens:
         in_price = self.total_in_price
         out_price = self.total_out_price
         print (f"\nThe program used total {in_tokens} (in) + {out_tokens} (out) tokens for {in_price:.4f} + {out_price:.4f} = {(in_price+out_price):.4f} cents.")
+    def cost(self):
+        return self.total_in_price + self.total_out_price

@@ -29,6 +29,7 @@ dictionary['p'] = "O"
 dictionary['X'] = "X"
 dictionary['o'] = "P"
 dictionary['F'] = "D"
+# Translate the symbols from Banan page to our OXPD dictionary
 for yindex, yentry in enumerate(board):
     for xindex, xentry in enumerate(yentry):
         board[yindex][xindex] = dictionary[xentry]
@@ -44,6 +45,8 @@ y += 2
 print ("The board is:")
 pp (board, indent=4)
 
+# Transform board list to board_text string
+# With "\n" separating each line and ", " separating line entries
 board_lines = [", ".join(line) for line in board]
 board_text = "\n".join(board_lines)
 

@@ -1,5 +1,5 @@
 """
-Simple solution to second task.
+Simple solution to third task.
 - get JSON with the data
 - go through the entries 1:1
 - if object has no questions - just correct maths

@@ -84,8 +84,8 @@ In the end:
 messages = [
     {"role": "user", "content": prompt}
 ]
-answer = ai.chat_completion(messages, model, 2000, 0)
 print ("\n\nThe prompt is:\n\n")
 print (prompt)
+answer = ai.chat_completion(messages, model, 2000, 0)
 print ("\n\nThe solution is:\n\n")
 print (answer)

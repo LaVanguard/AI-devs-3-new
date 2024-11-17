@@ -15,6 +15,8 @@ from lib.myai import MyAI
 # Define the task source
 model = "gpt-4o-mini"
 ai = MyAI(openai_api_key, False, 2)     # Report each token use, limit to 2 cents
+max_tokens = 2000
+if len(sys.argv)>1: max_tokens = int(sys.argv[1])
 
 # Load the maze:
 board = [
@@ -22,7 +24,15 @@ board = [
   ['p', 'p', 'p', 'X', 'p', 'p'],
   ['p', 'X', 'p', 'X', 'p', 'p'],
   ['o', 'X', 'p', 'p', 'p', 'F']
-];
+]
+
+alt_board = [
+  ['p', 'p', 'p', 'p', 'X'],
+  ['p', 'X', 'X', 'p', 'X'],
+  ['F', 'X', 'p', 'p', 'p'],
+  ['p', 'X', 'o', 'X', 'p'],
+  ['p', 'p', 'p', 'X', 'p']
+]
 
 dictionary = {}
 dictionary['p'] = "O"
@@ -86,6 +96,6 @@ messages = [
 ]
 print ("\n\nThe prompt is:\n\n")
 print (prompt)
-answer = ai.chat_completion(messages, model, 2000, 0)
+answer = ai.chat_completion(messages, model, max_tokens, 0)
 print ("\n\nThe solution is:\n\n")
 print (answer)

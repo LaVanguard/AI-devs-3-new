@@ -53,6 +53,10 @@ class UsedTokens:
         "o1-mini-2024-09-12": {
             "input": 300,
             "output": 1200
+        },
+        "whisper-1": {
+            "input": 0.01,
+            "output": 0
         }
     }
     def log(self, completion, source=""):
@@ -69,6 +73,12 @@ class UsedTokens:
         self.total_out_price += out_price
         if not self.quiet:
             print (f".... prompt from \"{source}\" used {in_tokens} (in) + {out_tokens} (out) tokens for {in_price:.4f} + {out_price:.4f} = {(in_price+out_price):.4f} cents.")
+    def log_transcription(self, duration, model, source=""):
+        in_pricing = self.pricing[model]["input"] if model in self.pricing else 0
+        in_price = round(duration) * in_pricing
+        self.total_in_price += in_price
+        if not self.quiet:
+            print (f".... transcription from \"{source}\" used {round(duration)} seconds for {in_price:.4f} cents.")
     def print(self):
         in_tokens = self.total_in_tokens
         out_tokens = self.total_out_tokens

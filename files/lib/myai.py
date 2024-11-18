@@ -14,6 +14,7 @@ my_ai = MyAI("MYSECRETAPIKEY", True, 2.5)
 import requests
 import sys
 from openai import OpenAI
+from pprint import pp
 
 from lib.usedtokens import UsedTokens
 
@@ -57,3 +58,18 @@ class MyAI:
             print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
             sys.exit(1)
         return response
+    def transcribe(self, file, model="whisper-1"):
+        try:
+            transcription = self.ai.audio.transcriptions.create(
+                model = model,
+                file = file,
+                response_format = "verbose_json"
+            )
+            self.tokens.log_transcription(transcription.duration, model)
+        except Exception as error:
+            print (f"Error in OpenAI request: {error}")
+            sys.exit(1)
+        if self.limit>0 and self.tokens.cost()>self.limit:
+            print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
+            sys.exit(1)
+        return transcription.text

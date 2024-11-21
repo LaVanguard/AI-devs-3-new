@@ -14,3 +14,13 @@ def send_task_response(api_key, task, answer, response_api = "https://poligon.ai
     headers = {"content-type": "application/json"}
     response_raw = requests.post(response_api, json=data, headers=headers)
     return response_raw.json()
+
+def get_response(api_key, task, query, response_api):
+    data = {
+        "task": task,
+        "apikey": api_key,
+        "query": query
+    }
+    headers = {"content-type": "application/json"}
+    response_raw = requests.post(response_api, json=data, headers=headers)
+    return response_raw.json()

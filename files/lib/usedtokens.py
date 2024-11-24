@@ -62,17 +62,18 @@ class UsedTokens:
     def log(self, completion, source=""):
         in_tokens = completion.usage.prompt_tokens
         out_tokens = completion.usage.completion_tokens
+        cached_tokens = completion.usage.prompt_tokens_details.cached_tokens
         self.total_in_tokens += in_tokens
         self.total_out_tokens += out_tokens
         model = completion.model
         in_pricing = self.pricing[model]["input"] if model in self.pricing else 0
         out_pricing = self.pricing[model]["output"] if model in self.pricing else 0
-        in_price = in_tokens * in_pricing / 1000000
+        in_price = (in_tokens - cached_tokens/2) * in_pricing / 1000000
         out_price = out_tokens * out_pricing / 1000000
         self.total_in_price += in_price
         self.total_out_price += out_price
         if not self.quiet:
-            print (f".... prompt from \"{source}\" used {in_tokens} (in) + {out_tokens} (out) tokens for {in_price:.4f} + {out_price:.4f} = {(in_price+out_price):.4f} cents.")
+            print (f".... prompt from \"{source}\" used {in_tokens} in (with {cached_tokens} cached) + {out_tokens} out tokens for {in_price:.4f} + {out_price:.4f} = {(in_price+out_price):.4f} cents.")
     def log_transcription(self, duration, model, source=""):
         in_pricing = self.pricing[model]["input"] if model in self.pricing else 0
         in_price = round(duration) * in_pricing

@@ -25,7 +25,7 @@ class MyAI:
         self.limit = limit
     def __del__(self):
         self.tokens.print()
-    def chat_completion(self, messages, model, max_tokens, temperature=1):
+    def chat_completion(self, messages, model, max_tokens, temperature=1, source=""):
         try:
             chat_completion = self.ai.chat.completions.create(
                 messages = messages,
@@ -33,7 +33,7 @@ class MyAI:
                 max_tokens = max_tokens,
                 temperature = temperature
             )
-            self.tokens.log(chat_completion)
+            self.tokens.log(chat_completion, source)
             answer = chat_completion.choices[0].message.content
         except Exception as error:
             print (f"Error in OpenAI request: {error}")
@@ -58,14 +58,14 @@ class MyAI:
             print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
             sys.exit(1)
         return response
-    def transcribe(self, file, model="whisper-1"):
+    def transcribe(self, file, source="", model="whisper-1"):
         try:
             transcription = self.ai.audio.transcriptions.create(
                 model = model,
                 file = file,
                 response_format = "verbose_json"
             )
-            self.tokens.log_transcription(transcription.duration, model)
+            self.tokens.log_transcription(transcription.duration, model, source=source)
         except Exception as error:
             print (f"Error in OpenAI request: {error}")
             sys.exit(1)

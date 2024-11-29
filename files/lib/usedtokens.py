@@ -57,6 +57,14 @@ class UsedTokens:
         "whisper-1": {
             "input": 0.01,
             "output": 0
+        },
+        "text-embedding-3-small": {
+            "input": 2,
+            "output": 2
+        },
+        "text-embedding-3-large": {
+            "input": 13,
+            "output": 13
         }
     }
     def log(self, completion, source=""):
@@ -80,6 +88,15 @@ class UsedTokens:
         self.total_in_price += in_price
         if not self.quiet:
             print (f".... transcription from \"{source}\" used {round(duration)} seconds for {in_price:.4f} cents.")
+    def log_embedding(self, response, source=""):
+        in_tokens = response.usage.prompt_tokens
+        self.total_in_tokens += in_tokens
+        model = response.model
+        in_pricing = self.pricing[model]["input"] if model in self.pricing else 0
+        in_price = (in_tokens) * in_pricing / 1000000
+        self.total_in_price += in_price
+        if not self.quiet:
+            print (f".... embedding from \"{source}\" used {in_tokens} tokens for {in_price:.4f} cents.")
     def print(self):
         in_tokens = self.total_in_tokens
         out_tokens = self.total_out_tokens

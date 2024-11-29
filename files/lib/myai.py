@@ -73,3 +73,16 @@ class MyAI:
             print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
             sys.exit(1)
         return transcription.text
+    def embedding(self, text, model="text-embedding-3-small", source=""):
+        try:
+            parsed_text = text.replace("\n", " ")
+            embedding = self.ai.embeddings.create(input = [parsed_text], model=model)
+            self.tokens.log_embedding(embedding, source)
+            answer = embedding.data[0].embedding
+        except Exception as error:
+            print (f"Error in OpenAI request (embedding): {error}")
+            sys.exit(1)
+        if self.limit>0 and self.tokens.cost()>self.limit:
+            print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
+            sys.exit(1)
+        return answer

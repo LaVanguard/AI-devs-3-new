@@ -12,14 +12,14 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
 
 from lib.aidevs import send_task_response
-from secrets import aidevs_api_key, central_domain, openai_api_key, qdrant_api_key
+from secrets import aidevs_api_key, central_domain, openai_api_key, qdrant_api_key, qdrant_host
 from lib.myai import MyAI
 
 ai = MyAI(openai_api_key, False, 10)
 task = "wektory"
 directory = "downloads/weapons_tests/do-not-share"
 
-qdrant = QdrantClient(host="2c3d0930-8a4d-49fa-b9f6-cd18ea37fa2b.us-east4-0.gcp.cloud.qdrant.io", port=6333, api_key = qdrant_api_key)
+qdrant = QdrantClient(host=qdrant_host, port=6333, api_key = qdrant_api_key)
 # We prepare collection for size 1536 = text-embedding-3-small
 if not qdrant.collection_exists("ai-devs"):
    qdrant.create_collection(

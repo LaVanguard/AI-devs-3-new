@@ -16,7 +16,7 @@ def send_task_response(api_key, task, answer, response_api = "https://poligon.ai
     return response_raw.json()
 
 def get_response(api_key, task, query, response_api):
-    if task=="":
+    if task!="":
         data = {
             "task": task,
             "apikey": api_key,

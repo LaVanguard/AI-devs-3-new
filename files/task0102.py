@@ -15,7 +15,7 @@ from openai import OpenAI
 from pprint import pp
 
 from lib.usedtokens import UsedTokens
-from secrets import openai_api_key, central_domain
+from sekrety import openai_api_key, central_domain
 
 model = "gpt-4o"
 page = f"https://xyz.{central_domain}/verify"

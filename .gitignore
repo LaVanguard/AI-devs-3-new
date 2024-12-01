@@ -1,5 +1,5 @@
 venv
 __pycache__
 *.bak
-secrets.py
+sekrety.py
 downloads

@@ -9,7 +9,7 @@ import re
 import sys
 from pprint import pp
 
-from secrets import openai_api_key
+from sekrety import openai_api_key
 from lib.myai import MyAI
 
 # Define the task source

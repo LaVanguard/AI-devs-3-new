@@ -10,7 +10,7 @@ import sys
 from pprint import pp
 
 from lib.aidevs import send_task_response, get_response
-from secrets import aidevs_api_key, central_domain, openai_api_key
+from sekrety import aidevs_api_key, central_domain, openai_api_key
 from lib.myai import MyAI
 print (79*"=")
 ai = MyAI(openai_api_key, True, 5)

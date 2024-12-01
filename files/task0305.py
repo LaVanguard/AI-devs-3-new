@@ -11,7 +11,7 @@ from pprint import pp
 from neo4j import GraphDatabase
 
 from lib.aidevs import send_task_response, get_response
-from secrets import aidevs_api_key, central_domain, openai_api_key, neo4j_password, neo4j_url
+from sekrety import aidevs_api_key, central_domain, openai_api_key, neo4j_password, neo4j_url
 from lib.myai import MyAI
 
 def clearBase(database, silent=False):

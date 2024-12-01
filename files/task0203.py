@@ -9,7 +9,7 @@ import json
 from pprint import pp
 
 from lib.aidevs import send_task_response
-from secrets import aidevs_api_key, central_domain, openai_api_key
+from sekrety import aidevs_api_key, central_domain, openai_api_key
 from lib.myai import MyAI
 
 model = "dall-e-3"

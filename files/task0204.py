@@ -18,7 +18,7 @@ import base64
 from pprint import pp
 
 from lib.aidevs import send_task_response
-from secrets import aidevs_api_key, central_domain, openai_api_key
+from sekrety import aidevs_api_key, central_domain, openai_api_key
 from lib.myai import MyAI
 
 ai = MyAI(openai_api_key, False, 10)

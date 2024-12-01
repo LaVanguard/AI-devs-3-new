@@ -12,7 +12,7 @@ import sys
 from openai import OpenAI
 
 from lib.usedtokens import UsedTokens
-from secrets import openai_api_key, central_domain
+from sekrety import openai_api_key, central_domain
 
 page = f"https://xyz.{central_domain}"
 username = "tester"

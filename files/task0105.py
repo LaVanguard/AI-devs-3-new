@@ -9,7 +9,7 @@ import json
 from pprint import pp
 
 from lib.aidevs import send_task_response
-from secrets import local_ollama_server, aidevs_api_key, central_domain
+from sekrety import local_ollama_server, aidevs_api_key, central_domain
 
 # Open the task source page and get the data to anonimize
 input_link = f"https://centrala.{central_domain}/data/{aidevs_api_key}/cenzura.txt"

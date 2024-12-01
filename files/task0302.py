@@ -12,7 +12,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
 
 from lib.aidevs import send_task_response
-from secrets import aidevs_api_key, central_domain, openai_api_key, qdrant_api_key, qdrant_host
+from sekrety import aidevs_api_key, central_domain, openai_api_key, qdrant_api_key, qdrant_host
 from lib.myai import MyAI
 
 ai = MyAI(openai_api_key, False, 10)

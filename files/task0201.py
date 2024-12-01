@@ -12,7 +12,7 @@ import requests
 import zipfile
 from pprint import pp
 
-from secrets import aidevs_api_key, central_domain, openai_api_key
+from sekrety import aidevs_api_key, central_domain, openai_api_key
 from lib.myai import MyAI
 from lib.aidevs import send_task_response
 

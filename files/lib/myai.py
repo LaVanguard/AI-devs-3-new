@@ -42,6 +42,24 @@ class MyAI:
             print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
             sys.exit(1)
         return answer
+    def chat_completion_json(self, messages, model, max_tokens, temperature=1, source=""):
+        try:
+            chat_completion = self.ai.chat.completions.create(
+                messages = messages,
+                model = model,
+                max_tokens = max_tokens,
+                temperature = temperature,
+                response_format = {"type": "json_object"}
+            )
+            self.tokens.log(chat_completion, source)
+            answer = chat_completion.choices[0].message.content
+        except Exception as error:
+            print (f"Error in OpenAI request: {error}")
+            sys.exit(1)
+        if self.limit>0 and self.tokens.cost()>self.limit:
+            print (f"Exceeded limit of {self.limit} US Cents! Used {self.tokens.cost()} cents. EXIT.")
+            sys.exit(1)
+        return answer
     def images_generate(self, prompt, model="dall-e-3", size="1024x1024", quality="standard", n=1):
         try:
             response = self.ai.images.generate(

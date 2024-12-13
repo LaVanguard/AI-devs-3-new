@@ -38,13 +38,11 @@ The question you need to find answer to is:
 <question>
 """
 def get_answer(question):
-    print (79*"=")
     messages = [
         {"role": "system", "content": f"{prompt}\n{question}"}
     ]
     for i in range(10):
         result_raw = ai.chat_completion_json(messages, model, 200, 0, "Web crawler")
-        print (result_raw)
         result = json.loads(result_raw)
         if result['answer']:
             return result['answer']
@@ -58,7 +56,6 @@ def get_answer(question):
         page_text = page_raw.content.decode('utf8')
         page_markdown = md(page_text)
         message = f"Page {result['get']} :\n{page_markdown}"
-        print (f"\nMessage:\n{message}")
         messages.append({"role": "user", "content": message})
 
 # Get questions from JSON
@@ -72,7 +69,10 @@ questions = json.loads(questions_text)
 
 answers = {}
 for question in questions:
+    print (79*"=")
+    print (f"Question {question}: {questions[question]}")
     answers[question] = get_answer(questions[question])
+    print (f"Answer: {answers[question]}")
 
 final_response = send_task_response(aidevs_api_key, task, answers, f"https://centrala.{central_domain}/report")
 pp (final_response, indent=4, width=200)

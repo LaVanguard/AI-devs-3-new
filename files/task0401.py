@@ -1,5 +1,5 @@
 """
-Solution to 17th task:
+Solution to 16th task:
 - Find 4 links to download the pictures
 - Download
 - For each of them - make a decision - DARKEN / BRIGHTEN / REPAIR if needed

@@ -67,6 +67,7 @@ except Exception as error:
 questions_text = questions_raw.content.decode('utf8')
 questions = json.loads(questions_text)
 
+# Answer the questions
 answers = {}
 for question in questions:
     print (79*"=")

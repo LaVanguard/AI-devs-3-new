@@ -1,0 +1,10 @@
+{
+    "wybory_senat_main": {
+        "link": "https://www.bip.krakow.pl/?bip_id=1&mmi=29035&vReg=1",
+        "regex": "<div class=\"columns col-lg-3 col-md-3 col-sm-12 col-12\">\\D*(\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d)\\D*</div>"
+    },
+    "wybory_senat_okw": {
+        "link": "https://www.bip.krakow.pl/?dok_id=213319&vReg=1",
+        "regex": "<div class=\"columns col-lg-3 col-md-3 col-sm-12 col-12\">\\D*(\\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d:\\d\\d:\\d\\d)\\D*</div>"
+    }
+}

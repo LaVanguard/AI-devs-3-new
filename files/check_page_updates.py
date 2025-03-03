@@ -1,3 +1,16 @@
+"""
+check_page_updates - script to watch a selected website (specific link)
+                     and notify in case of changes.
+Runs with MyAI wrapper for OpenAI.
+Input: checked_pages.json contains directory of observed pages, with page name as key.
+       Value is another directory with 2 keys:
+       - link (string with URL to the webpage),
+       - regex (string with RegEx catching the first group and comparing if it changed).
+pages_dump.json contains the last status of the webpage ("markdownified" page contents
+and the RegEx value). If empty - will be filled on first run of the script for a page.
+If the RegEx changed for any of the pages, a Pushover message is sent with the notification.
+The notification will include also AI analysis of the change (few sentences describing what changed).
+"""
 import requests
 import json
 import sys
